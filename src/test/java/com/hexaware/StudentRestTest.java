@@ -15,9 +15,82 @@ import static com.jayway.restassured.RestAssured.given;
 
 public class StudentRestTest {
 
-@Test
+    @Test
 	public void testAllStudentsGET() throws AssertionError, URISyntaxException {
 		given().accept(ContentType.JSON).when()
 				.get("http://localhost:8080/sms/rest/students").then().assertThat().statusCode(200);
 	}
+
+    @Test
+	public void testStudentByIdGET() throws AssertionError, URISyntaxException {
+		given().accept(ContentType.JSON).when()
+				.get("http://localhost:8080/sms/rest/students/12").then().assertThat().statusCode(200);
+	}
+
+    @Test
+	public void testInvalidStudentByIdGET() throws AssertionError, URISyntaxException {
+		given().accept(ContentType.JSON).when()
+				.get("http://localhost:8080/sms/rest/students/13245352").then().assertThat().statusCode(404);
+	}
+
+    @Test
+	public void testValidtudentPOST() throws AssertionError, URISyntaxException {
+        Student student = new Student();
+        student.setId(12);
+        student.setName("Kishore");
+		given().accept(ContentType.JSON).body(student).when()
+				.post("http://localhost:8080/sms/rest/students/13245352").then().assertThat().statusCode(201);
+	}
+
+    @Test
+	public void testValidtudentPOST() throws AssertionError, URISyntaxException {
+        Student student = new Student();
+        student.setName("Kishore");
+		given().accept(ContentType.JSON).body(student).when()
+				.post("http://localhost:8080/sms/rest/students").then().assertThat().statusCode(400);
+	}
+
+    @Test
+	public void testValidtudentPOST() throws AssertionError, URISyntaxException {
+        Student student = new Student();
+        student.setId(12);
+        student.setName("Kishore");
+		given().accept(ContentType.JSON).body(student).when()
+				.put("http://localhost:8080/sms/rest/students/13245352").then().assertThat().statusCode(200);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
